@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-2048
+  namespace: "2048"
+  labels:
+    name: 2048project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: 2048pod
+  template:
+    metadata:
+      labels:
+         app: 2048pod
+         name: 2048project
+    spec:
+      containers:
+      - name: 2048-container
+        image: public.ecr.aws/l6m2t8p7/docker-2048:latest
+        ports:
+        - containerPort: 80  # Pod'un dinleyeceği port
+        env:
+        - name: MY_SECRET_GAME
+          valueFrom:
+            secretKeyRef:
+              name: game-secret  # Secret'ın adı
+              key: my_secret_game  # Secret içindeki anahtar
