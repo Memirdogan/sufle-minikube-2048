@@ -1,0 +1,27 @@
+namespace: "2048"
+replicas: 1
+
+deployment:
+  name:  deployment-2048
+
+container:
+  name: 2048-container
+  image: public.ecr.aws/l6m2t8p7/docker-2048:latest
+  port: 80
+
+service:
+  name: service-2048
+  port: 80
+  targetPort: 80
+  nodePort: 30080
+
+labels:
+  app: 2048pod
+  projectname: 2048project
+
+secret:
+  name: game-secret
+  data: MjA0OHNlY3JldA==
+
+env:
+  name: MY_SECRET_GAME

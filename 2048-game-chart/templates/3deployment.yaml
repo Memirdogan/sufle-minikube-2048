@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  namespace: "{{ .Values.namespace }}"
+  labels:
+    name: {{ .Values.labels.projectname }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.app }}
+  template:
+    metadata:
+      labels:
+         app: {{ .Values.labels.app }}
+         name: {{ .Values.labels.projectname }}
+    spec:
+      containers:
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.container.image }}
+        ports:
+        - containerPort: {{ .Values.container.port }}  # Pod'un dinleyeceği port
+        env:
+        - name: {{ .Values.env.name }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}  # Secret'ın adı
+              key: my_secret_game  # Secret içindeki anahtar
