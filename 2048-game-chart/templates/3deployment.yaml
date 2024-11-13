@@ -5,17 +5,17 @@ metadata:
   namespace: "{{ .Values.namespace }}"
   labels:
     name: {{ .Values.labels.projectname }}
-spec:
+spec: # kaynağın spesifikasyonları, nasıl çalışması gerektiği ve hangi özelliklere sahip olması gerektiği
   replicas: {{ .Values.replicas }}
-  selector:
-    matchLabels:
-      app: {{ .Values.labels.app }}
-  template:
+  selector: # hangi podların bu deployment tarafından yönetileceği
+    matchLabels: # label eşleşmesine göre yönetilecekleri belirler
+      app: {{ .Values.labels.app }} # dosyanın yöneteceği etiket
+  template: # podların bilgileri
     metadata:
-      labels:
-         app: {{ .Values.labels.app }}
+      labels: # burada matchlabels'deki etiket olmalı ki yönetilsin
+         app: {{ .Values.labels.app }} 
          name: {{ .Values.labels.projectname }}
-    spec:
+    spec: # podların spesifikasyonları
       containers:
       - name: {{ .Values.container.name }}
         image: {{ .Values.container.image }}
@@ -25,5 +25,5 @@ spec:
         - name: {{ .Values.env.name }}
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.secret.name }}  # Secret'ın adı
-              key: my_secret_game  # Secret içindeki anahtar
+              name: {{ .Values.secret.name }}  # Secret'ın metadatadaki adı
+              key: my_secret_game  # Secret içindeki data
