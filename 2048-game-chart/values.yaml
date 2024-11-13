@@ -1,8 +1,8 @@
 namespace: "2048"
 replicas: 1
-# --set replicas= 3
-deployment: 
-  name:  deployment-2048
+
+deployment:
+  name: deployment-2048
 
 container:
   name: 2048-container

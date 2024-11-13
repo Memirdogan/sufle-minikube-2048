@@ -8,7 +8,6 @@ spec:
   selector:
     app: {{ .Values.labels.app }}
   ports:
-  - port: {{ .Values.service.port }} #cluster içerisinden poda açılan port
-    targetPort: {{ .Values.service.targetPort }} #Pod’un içinde çalışacak container’ın dinlediği porttur
-    nodePort: {{ .Values.service.nodePort }}  #  NodePort’un cluster dışından erişim için kullanacağı port numarası 
-    # 30000-32767 aralığında bir numara olmalıdır.
+  - port: {{ .Values.service.port }} 
+    targetPort: {{ .Values.service.targetPort }} 
+    nodePort: {{ .Values.service.nodePort }}  
